@@ -135,8 +135,11 @@ String[] list = {"하나", "둘", "셋"};
 orderedList(list, true);
 ```
 1. 하나
-  2. 둘
-    3. 셋
+
+    2. 둘
+    
+       3. 셋
+       
 
 # unorderedList
 ```java
