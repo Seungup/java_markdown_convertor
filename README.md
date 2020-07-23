@@ -137,9 +137,9 @@ orderedList(list, true);
 1. 하나
 
     2. 둘
-    
-       3. 셋
-       
+
+        3. 셋
+
 
 # unorderedList
 ```java
@@ -159,5 +159,11 @@ String[] list = {"하나", "둘", "셋"};
 unorderedList(list, true);
 ```
 * 하나
-  * 둘
-    * 셋
+    * 둘
+        * 셋
+        
+        
+* 하나
+    * 둘
+        * 셋
+       
