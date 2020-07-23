@@ -11,6 +11,43 @@ public class CMarkdownUtil {
         STRIKETHROUGH
     }
 
+    public enum CodeLanguage
+    {
+        JAVA,
+        JAVASCRIPT,
+        PYTHON,
+        GO,
+        CPP,
+        C,
+        C_SHARP,
+        SWIFT,
+        PHP,
+        SQL,
+        RUBY,
+        VISUAL_BASIC,
+        BASH,
+        CMD,
+        HTML,
+        CSS,
+        R,
+        MATLAB,
+        VISUAL_BASIC_DOT_NET,
+        PERI,
+        OBJECT_C,
+        ASSEMBLY_LANGUAGE,
+        SAS,
+        DART,
+        GROOVY,
+        SCRATCH,
+        RUST,
+        COBOL,
+        SCALA,
+        FORTRAN,
+        KOTLIN,
+        F_SHARP,
+        NONE
+    }
+
     // header
     public static @NotNull
     String header(@NotNull String target, int size) throws Exception
@@ -91,9 +128,13 @@ public class CMarkdownUtil {
     public static @NotNull String code(String code) { return "`" + code + "`"; }
 
     @Contract(pure = true)
-    public static @NotNull String code(String code, String language)
+    public static @NotNull String code(String code, CodeLanguage codeLanguage)
     {
-        return "```" + language + "\n" + code + "\n```";
+        if (codeLanguage.equals(CodeLanguage.NONE))
+        {
+            return "```\n" + code + "\n```";
+        }
+        return "```" + codeLanguage.toString().toLowerCase() + "\n" + code + "\n```";
     }
 
 
@@ -245,12 +286,13 @@ public class CMarkdownUtil {
         // code
         print("Code");
         print(code("print(code);"));
-        print(code("print(code);", "Java"));
+        print(code("print(code);", CodeLanguage.PYTHON));
+        print(code("ls -la", CodeLanguage.NONE));
         print("");
 
         // blackQuote
         print("BlackQuote");
-        print(blackQuote(code("System.out.println(\"Hello World!\");", "Java"), 1));
+        print(blackQuote(code("System.out.println(\"Hello World!\");", CodeLanguage.JAVA), 1));
         print("");
 
 
