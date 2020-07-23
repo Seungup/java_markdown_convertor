@@ -161,9 +161,3 @@ unorderedList(list, true);
 * 하나
     * 둘
         * 셋
-        
-        
-* 하나
-    * 둘
-        * 셋
-       
