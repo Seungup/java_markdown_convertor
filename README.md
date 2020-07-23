@@ -156,5 +156,5 @@ String[] list = {"하나", "둘", "셋"};
 unorderedList(list, true);
 ```
 * 하나
-    * 둘
-        * 셋
+  * 둘
+    * 셋
