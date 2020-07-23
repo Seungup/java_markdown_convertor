@@ -2,6 +2,9 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class CMarkdownUtil {
+    private static final int TAB_KEY_SPACE = 4;
+    private static final String SPACE = " ";
+    private static final String NEW_LINE = SPACE.repeat(2);
 
     public enum TextStyle
     {
@@ -128,7 +131,7 @@ public class CMarkdownUtil {
     public static @NotNull String code(String code) { return "`" + code + "`"; }
 
     @Contract(pure = true)
-    public static @NotNull String code(String code, CodeLanguage codeLanguage)
+    public static @NotNull String code(String code, @NotNull CodeLanguage codeLanguage)
     {
         if (codeLanguage.equals(CodeLanguage.NONE))
         {
@@ -171,11 +174,11 @@ public class CMarkdownUtil {
     public static @NotNull
     String orderedList(int number ,String target, int enter)
     {
-        return " ".repeat(enter * 2) + orderedList(number, target);
+        return " ".repeat(enter * TAB_KEY_SPACE) + orderedList(number, target);
     }
 
     @NotNull
-    private static StringBuilder getString(String @NotNull [] list, boolean enter)
+    private static StringBuilder getOrderedList(String @NotNull [] list, boolean enter)
     {
         StringBuilder return_ = new StringBuilder();
 
@@ -189,9 +192,9 @@ public class CMarkdownUtil {
                 }
             } else {
                 if (enter) {
-                    return_.append(orderedList(i + 1, list[i], i)).append("\n");
+                    return_.append(orderedList(i + 1, list[i], i)).append("\n\n");
                 } else {
-                    return_.append(orderedList(i + 1, list[i])).append("\n");
+                    return_.append(orderedList(i + 1, list[i])).append("\n\n");
                 }
             }
         }
@@ -199,7 +202,7 @@ public class CMarkdownUtil {
     }
 
     public static @NotNull
-    String orderedList(String @NotNull [] list, boolean enter) { return getString(list, enter).toString(); }
+    String orderedList(String @NotNull [] list, boolean enter) { return getOrderedList(list, enter).toString(); }
 
 
     // unorderedList
@@ -207,26 +210,21 @@ public class CMarkdownUtil {
     String unorderedList(String target) { return "* " + target; }
 
     public static @NotNull
-    String unorderedList(String target, int enter) { return " ".repeat(enter * 2) + unorderedList(target); }
+    String unorderedList(String target, int enter) { return " ".repeat(enter * TAB_KEY_SPACE) + unorderedList(target); }
 
     private static @NotNull
     StringBuilder getUnorderedList(String @NotNull [] list, boolean enter)
     {
+
         StringBuilder return_ = new StringBuilder();
         for (int i = 0; i < list.length; i++)
         {
-            if (i == list.length - 1) {
-                if (enter) {
-                    return_.append(" ".repeat(i * 2)).append(unorderedList(list[i], i));
-                } else {
-                    return_.append(unorderedList(list[i]));
-                }
+            if (enter) {
+                return_
+                        .append(unorderedList(list[i], i))
+                        .append("\n");
             } else {
-                if (enter) {
-                    return_.append(" ".repeat(i * 2)).append(unorderedList(list[i], i)).append("\n");
-                } else {
-                    return_.append(unorderedList(list[i])).append("\n");
-                }
+                return_.append(unorderedList(list[i])).append("\n");
             }
         }
         return return_;
